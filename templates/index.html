@@ -4,21 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
     <title>Document Image Processor</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Document Image Processor</h1>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label for="imageUpload" class="custom-file-upload">
-                <i class="fa fa-cloud-upload"></i> Upload Document Image
-            </label>
-            <input id="imageUpload" type="file" name="file" accept=".jpg, .jpeg, .png" required>
-            <button type="submit">Process Image</button>
-        </form>
-        <div id="thumbnailContainer"></div>
-        <div id="result"></div>
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    <div class="navbar">
+        <a href="#" onclick="showUploadTab()">Upload and Process</a>
+        <a href="#" onclick="showDatabaseTab()">Database</a>
     </div>
+
+    <div id="uploadTab" class="tab">
+        
+        <div class="container">
+            <h1>Document Image Processor</h1>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="imageUpload" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> Upload Document Image
+                </label>
+                <input id="imageUpload" type="file" name="file" accept=".jpg, .jpeg, .png" required>
+                <button type="submit">Process Image</button>
+            </form>
+            <div class="thumbnail" id="thumbnail">
+                <img id="previewImage" alt="Selected Image appears here ">
+                <div id="remove_icon" class="remove-icon" onclick="removeImage()">&times;</div>
+            </div>
+            <div id="result"></div>
+        </div>
+
+    </div>
+
+    <div id="databaseTab" class="tab" style="display:none;">
+        
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
