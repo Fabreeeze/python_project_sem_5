@@ -1,0 +1,38 @@
+<!-- database.html -->
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='database_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+</head>
+<body>
+    <!-- <ul class="tabs">
+        <li id="uploadTab"><a href="/"><i class="fas fa-upload"></i> Upload Image</a></li>
+        <li id="databaseTab"><a href="/database_data">View Database</a></li>
+    </ul> -->
+    <div class="tabs">
+        <div class="tab" id="uploadTab" onclick="switchTab('uploadDiv')"><a href="/">Upload Image</a></div>
+        <div class="tab" id="databaseTab" onclick="switchTab('databaseDiv')"><a href="/database_data">View Database</a></div>
+    </div>
+    
+    <div clas="database-contents">
+        <h2>Database Contents</h2>
+        <ul class="database-list">
+            {% for index, item in data %}
+                <li class="database-item">
+                    <span class="database-field">Sr. No.:</span>
+                    <span class="database-value">{{ index }}</span>
+                    <br>
+                    <span class="database-field">Name  :</span>
+                    <span class="database-value"> {{ item.name }}</span>
+                    <br>
+                    <span class="database-field">Email  :</span>
+                    <span class="database-value"> {{ item.email }}</span>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('databaseTab').classList.add('active');
+        });
+    </script>
+    
+</body>

@@ -1,0 +1,35 @@
+/* Add this CSS to your styles.css file */
+
+.database-contents {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.database-contents h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.database-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.database-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.database-item:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+.database-field {
+    font-weight: bold;
+}
+
+.database-value {
+    margin-left: 10px;
+}

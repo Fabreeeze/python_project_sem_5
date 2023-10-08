@@ -1,13 +1,15 @@
-function showUploadTab() {
-    document.getElementById('uploadTab').style.display = 'block';
-    document.getElementById('databaseTab').style.display = 'none';
+function switchTab(tabId) {
+
+    // Hide all tab contents and deactivate all tabs
+    document.querySelectorAll('.tabContent').forEach(content => content.style.display = 'none');
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+
+    // Show the selected tab content and activate the selected tab
+    document.getElementById(tabId).style.display = 'block';
+    document.getElementById(tabId).classList.add('active');
 }
 
-function showDatabaseTab() {
-    document.getElementById('uploadTab').style.display = 'none';
-    document.getElementById('databaseTab').style.display = 'block';
-}
-
+switchTab('uploadDiv');
 
 
 document.getElementById('imageUpload').addEventListener('change', function(event) {
