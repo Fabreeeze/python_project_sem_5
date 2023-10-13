@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='success_message_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='success_message_styles.css') }}">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
     <title>Document Image Processor</title>
 </head>
 <body>
     
-    <div class="tabs">
-        <div class="tab" id="uploadTab" onclick="switchTab('uploadDiv')"><a href="/">Upload Image</a></div>
-        <div class="tab" id="databaseTab" onclick="switchTab('databaseDiv')"><a href="/database_data">View Database</a></div>
+    <div class="header">
+        <h1>My project</h1>
+        <div class="tabs">
+            <div id="uploadTab" class="tab active" onclick="changeTab('uploadTab')"><a href="/">Upload Image</a></div>
+            <div id="databaseTab" class="tab" onclick="changeTab('databaseTab')"><a href="/database_data">View Database</a></div>
+        </div>
     </div>
+
+
 
 
     <div id="uploadDiv" class="tabContent">
@@ -39,8 +46,8 @@
     <!-- <div id="databaseDiv" class="tabContent">
     </div> -->
     
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='success_message_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <!-- <script src="{{ url_for('static', filename='database_script.js') }}"></script> -->
 </body>
 </html>
