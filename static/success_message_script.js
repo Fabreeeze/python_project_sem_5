@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (result.success) {
             const successMessage = document.createElement('div');
-            successMessage.classList.add('success-message');
+            successMessage.classList.add('alert', 'alert-success', 'mt-4','fixed-top', 'text-center', 'w-100');
             successMessage.innerText = 'Image successfully scanned and uploaded!';
             document.body.appendChild(successMessage);
 
