@@ -1,38 +1,50 @@
-<!-- database.html -->
+<!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='database_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
 </head>
 <body>
-    <!-- <ul class="tabs">
-        <li id="uploadTab"><a href="/"><i class="fas fa-upload"></i> Upload Image</a></li>
-        <li id="databaseTab"><a href="/database_data">View Database</a></li>
-    </ul> -->
-    <div class="tabs">
-        <div class="tab" id="uploadTab" onclick="switchTab('uploadDiv')"><a href="/">Upload Image</a></div>
-        <div class="tab" id="databaseTab" onclick="switchTab('databaseDiv')"><a href="/database_data">View Database</a></div>
+    <div class="header">
+        <h1>My project</h1>
+        <div class="tabs">
+            <div id="uploadTab" class="tab" onclick="changeTab('uploadTab')"><a href="/">Upload Image</a></div>
+            <div id="databaseTab" class="tab active" onclick="changeTab('databaseTab')"><a href="/database_data">View Database</a></div>
+        </div>
     </div>
     
-    <div clas="database-contents">
+    
+    <div class="database-contents">
         <h2>Database Contents</h2>
         <ul class="database-list">
             {% for index, item in data %}
-                <li class="database-item">
-                    <span class="database-field">Sr. No.:</span>
-                    <span class="database-value">{{ index }}</span>
-                    <br>
-                    <span class="database-field">Name  :</span>
-                    <span class="database-value"> {{ item.name }}</span>
-                    <br>
-                    <span class="database-field">Email  :</span>
-                    <span class="database-value"> {{ item.email }}</span>
+                <li class="database-item" id="{{ item._id }}" onclick="errfnct('{{ item._id }}')">
+                    <div class="item-content">
+                        
+                        <span class="database-field">Sr. No.:</span>
+                        <span class="database-value">{{ index }}</span>
+                        <br>
+                        <span class="database-field">Name  :</span>
+                        <span class="database-value"> {{ item.name }}</span>
+                        <br>
+                        <span class="database-field">Email  :</span>
+                        <span class="database-value"> {{ item.email }}</span>
+                    </div>
+                    <button class="delete-button" onclick="deleteItem('{{ item._id }}')">X</button>
             {% endfor %}
         </ul>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('databaseTab').classList.add('active');
-        });
+        
     </script>
+    <script src="{{ url_for('static', filename='database_script.js') }}"></script>
+    <script>
+        function errfnct(itemid) {
+            console.log(itemid);
+        }
+    </script>
+    
+    
     
 </body>
