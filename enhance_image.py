@@ -20,5 +20,5 @@ def enhance_image(file):
 
     # Step 4: Convert the enhanced image back to RGB format
     enhanced_image_rgb = cv2.cvtColor(enhanced_image, cv2.COLOR_GRAY2RGB)
-
+    print("\nUwU ---\n\n\nImage Enhanced \n\n\n\n----------\n\n\n")
     return enhanced_image_rgb
