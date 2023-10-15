@@ -7,13 +7,26 @@ from save_to_mongo import save_to_mongodb
 from save_to_mongo import load_from_mongodb
 from save_to_mongo import remove_item
 import pytesseract
+from flask import session
 from PIL import Image
 import numpy as np
 import cv2
+from dotenv import load_dotenv
+import os
+
+# Loading environment variables
+load_dotenv()
+
+# Accessing environment variables
+
+
+
+app = Flask(__name__)
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
 
 
 @app.route('/')
@@ -31,11 +44,13 @@ def upload_file():
     #     return jsonify({"message": "File uploaded and processed successfully.", "success": True})
     # else:
     #     return jsonify({"message": "No file uploaded", "success": False})
+    
     try:
         file = request.files['file']
         if file.filename != '':
-            process_image(file)
-            return jsonify({"message": "File uploaded and processed successfully.", "success": True})
+            extracted_data = process_image(file)
+            return render_template('edit_data.html', extracted_text=extracted_data)
+           
         else:
             return jsonify({"message": "No file uploaded", "success": False})
     except Exception as e:
@@ -46,11 +61,25 @@ def process_image(file):
     enhanced_image = enhance_image(file)
     ocr_text = pytesseract.image_to_string(enhanced_image)
     extracted_data = extract_information_from_ocr_results(ocr_text)
-    save_to_mongodb(extracted_data)
 
+    # save_to_mongodb(extracted_data)
+    return extracted_data
+    
      # Assuming the data was successfully uploaded to the database, we return a success message
     # return jsonify({"success": True})
 
+
+# @app.route('/edit_data', methods=['POST'])
+# def edit_data():
+#     extracted_data = session.get('extracted_data')
+#     return render_template('edit_data.html', extracted_text = extracted_data )
+
+
+@app.route('/submit_edited_data', methods=['POST'])
+def save_data():
+    final_extracted_data = request.form['edited_text']
+    save_to_mongodb(final_extracted_data)
+    return jsonify({"message": "Data successfully saved to the database.", "success": True})
 
 @app.route('/database_data')
 def database_data():
