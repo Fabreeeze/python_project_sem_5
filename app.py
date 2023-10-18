@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, json, url_for
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from enhance_image import enhance_image
@@ -35,7 +35,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    print('\noioioi\n\noioii\nreached upload\noioioi\n\n\n')
+    # print('\noioioi\n\noioii\nreached upload\noioioi\n\n\n')
     # file = request.files['file']
     # if file.filename != '':
     #     # Assuming you have a function process_image(file) which extracts data using OCR
@@ -44,13 +44,12 @@ def upload_file():
     #     return jsonify({"message": "File uploaded and processed successfully.", "success": True})
     # else:
     #     return jsonify({"message": "No file uploaded", "success": False})
-    
     try:
         file = request.files['file']
         if file.filename != '':
             extracted_data = process_image(file)
-            return render_template('edit_data.html', extracted_text=extracted_data)
-           
+            session['extracted_data'] = extracted_data
+            return redirect('edit_data') 
         else:
             return jsonify({"message": "No file uploaded", "success": False})
     except Exception as e:
@@ -69,23 +68,31 @@ def process_image(file):
     # return jsonify({"success": True})
 
 
-# @app.route('/edit_data', methods=['POST'])
-# def edit_data():
-#     extracted_data = session.get('extracted_data')
-#     return render_template('edit_data.html', extracted_text = extracted_data )
+@app.route('/edit_data', methods=['GET','POST'])
+def edit_data():
+    extracted_data = session.get('extracted_data')
+    return render_template('edit_data.html', extracted_text=extracted_data)
+    # return jsonify({ "success": True })
 
 
 @app.route('/submit_edited_data', methods=['POST'])
 def save_data():
-    final_extracted_data = request.form['edited_text']
+    edited_text = request.form
+    print(type(json.loads(edited_text)))
+    final_extracted_data = json.loads(edited_text)
     save_to_mongodb(final_extracted_data)
     return jsonify({"message": "Data successfully saved to the database.", "success": True})
+    # return redirect(url_for('index'), message='Data successfully saved to the database.')
+
 
 @app.route('/database_data')
 def database_data():
     data = load_from_mongodb()
     return render_template('database.html', data=list(enumerate(data, start=1)))
 
+@app.route('/test',methods =['POST'])
+def testFunction():
+    return render_template('edit_data.html',extracted_text='ansh')
 
 
 @app.route('/delete_item', methods=['POST'])
