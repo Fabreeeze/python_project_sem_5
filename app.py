@@ -13,6 +13,7 @@ import numpy as np
 import cv2
 from dotenv import load_dotenv
 import os
+import re
 
 # Loading environment variables
 load_dotenv()
@@ -78,8 +79,14 @@ def edit_data():
 
 @app.route('/submit_edited_data', methods=['POST'])
 def save_data():
-    edited_text = request.form['edited_text']
-    import re
+    name = request.form.get('name')
+    email = request.form.get('email')
+
+    edited_text = {
+        'name': name,
+        'email': email
+    }
+    edited_text = str(edited_text)
     pattern = re.compile('(?<!\\\\)\'')
     edited_text = pattern.sub('\"', edited_text)
     final_extracted_data = json.loads(edited_text)
