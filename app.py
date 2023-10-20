@@ -49,10 +49,11 @@ def upload_file():
         if file.filename != '':
             extracted_data = process_image(file)
             session['extracted_data'] = extracted_data
-            return redirect('edit_data') 
+            return redirect('/edit_data') 
         else:
             return jsonify({"message": "No file uploaded", "success": False})
     except Exception as e:
+        print(e)
         return jsonify({"message": str(e), "success": False}), 500
 
 def process_image(file):
@@ -68,21 +69,23 @@ def process_image(file):
     # return jsonify({"success": True})
 
 
-@app.route('/edit_data', methods=['GET','POST'])
+@app.route('/edit_data', methods=['GET'])
 def edit_data():
     extracted_data = session.get('extracted_data')
+    print(render_template('edit_data.html', extracted_text=extracted_data))
     return render_template('edit_data.html', extracted_text=extracted_data)
-    # return jsonify({ "success": True })
 
 
 @app.route('/submit_edited_data', methods=['POST'])
 def save_data():
-    edited_text = request.form
-    print(type(json.loads(edited_text)))
+    edited_text = request.form['edited_text']
+    import re
+    pattern = re.compile('(?<!\\\\)\'')
+    edited_text = pattern.sub('\"', edited_text)
     final_extracted_data = json.loads(edited_text)
     save_to_mongodb(final_extracted_data)
-    return jsonify({"message": "Data successfully saved to the database.", "success": True})
-    # return redirect(url_for('index'), message='Data successfully saved to the database.')
+    # return jsonify({"message": "Data successfully saved to the database.", "success": True})
+    return redirect(url_for('index'))
 
 
 @app.route('/database_data')
