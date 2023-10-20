@@ -93,9 +93,6 @@ def database_data():
     data = load_from_mongodb()
     return render_template('database.html', data=list(enumerate(data, start=1)))
 
-@app.route('/test',methods =['POST'])
-def testFunction():
-    return render_template('edit_data.html',extracted_text='ansh')
 
 
 @app.route('/delete_item', methods=['POST'])
