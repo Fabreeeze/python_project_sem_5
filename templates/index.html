@@ -43,6 +43,19 @@
         </div>
 
     </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success mt-4 fixed-top text-center w-100">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+
     
     <script src="{{ url_for('static', filename='success_message_script.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

@@ -47,3 +47,12 @@
 //     //     }
 //     });
 // });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const successMessage = document.querySelector('.alert-success');
+    if (successMessage) {
+        setTimeout(() => {
+            successMessage.remove();
+        }, 3000);
+    }
+});

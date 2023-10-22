@@ -1,11 +1,9 @@
-from flask import Flask, render_template, jsonify, request, redirect, json, url_for
+from flask import Flask, render_template, jsonify, request, redirect, json, url_for , flash
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from enhance_image import enhance_image
 from extract_data import extract_information_from_ocr_results
-from save_to_mongo import save_to_mongodb
-from save_to_mongo import load_from_mongodb
-from save_to_mongo import remove_item
+from save_to_mongo import save_to_mongodb, load_from_mongodb , remove_item
 import pytesseract
 from flask import session
 from PIL import Image
@@ -14,6 +12,7 @@ import cv2
 from dotenv import load_dotenv
 import os
 import re
+
 
 # Loading environment variables
 load_dotenv()
@@ -73,7 +72,7 @@ def process_image(file):
 @app.route('/edit_data', methods=['GET'])
 def edit_data():
     extracted_data = session.get('extracted_data')
-    print(render_template('edit_data.html', extracted_text=extracted_data))
+    # print(render_template('edit_data.html', extracted_text=extracted_data))
     return render_template('edit_data.html', extracted_text=extracted_data)
 
 
@@ -90,7 +89,9 @@ def save_data():
     pattern = re.compile('(?<!\\\\)\'')
     edited_text = pattern.sub('\"', edited_text)
     final_extracted_data = json.loads(edited_text)
+    print(final_extracted_data)
     save_to_mongodb(final_extracted_data)
+    flash('Data successfully saved to the database.', 'success')
     # return jsonify({"message": "Data successfully saved to the database.", "success": True})
     return redirect(url_for('index'))
 
