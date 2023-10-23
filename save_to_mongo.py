@@ -24,7 +24,7 @@ def save_to_mongodb(extracted_data):
 
 def load_from_mongodb():
         # Connect to MongoDB
-    client = MongoClient('mongodb://localhost:27017/') 
+    client = MongoClient('mongodb://127.0.0.1:27017/') 
 
     # Access the database
     db = client['OCR_project']  

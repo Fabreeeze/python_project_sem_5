@@ -15,6 +15,8 @@ function deleteItem(itemId) {
             if (itemElement) {
                 itemElement.remove();
             }
+
+            
         } 
         else {
             console.error('Error deleting item');
@@ -24,17 +26,17 @@ function deleteItem(itemId) {
 }
 
 
-//this is repeated code below for now 
-function changeTab(tabName) {
-    var i, tabContent, tab;
+// //this is repeated code below for now 
+// function changeTab(tabName) {
+//     var i, tabContent, tab;
 
 
-    // Deactivates all tabs
-    tab = document.getElementsByClassName("tab");
-    for (i = 0; i < tab.length; i++) {
-        tab[i].classList.remove("active");
-    }
+//     // Deactivates all tabs
+//     tab = document.getElementsByClassName("tab");
+//     for (i = 0; i < tab.length; i++) {
+//         tab[i].classList.remove("active");
+//     }
 
-    // Activates the selected tab
-    document.getElementById(tabName).classList.add("active");
-}
+//     // Activates the selected tab
+//     document.getElementById(tabName).classList.add("active");
+// }

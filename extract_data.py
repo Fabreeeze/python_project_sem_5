@@ -3,8 +3,8 @@ import re
 def extract_information_from_ocr_results(ocr_text):
     # Add your regular expressions here
     # For example:
-    name_pattern = r"Name: (.+)"
-    email_pattern = r"Email: (.+)"
+    name_pattern = r"Name:(.+)"
+    email_pattern = r"Email:(.+)"
     # Add more patterns as needed
 
     # Use regular expressions to extract information

@@ -31,7 +31,9 @@
                         <span class="database-field">Email  :</span>
                         <span class="database-value"> {{ item.email }}</span>
                     </div>
-                    <button class="delete-button" onclick="deleteItem('{{ item._id }}')">X</button>
+                    <div class="div-button-class">
+                        <button class="delete-button" onclick="deleteItem('{{ item._id }}')">X</button>
+                    </div>
             {% endfor %}
         </ul>
     </div>
